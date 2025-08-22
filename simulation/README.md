@@ -13,7 +13,7 @@
     ```
     cd clas12Tags
 
-    setenv GEMC_DATA_DIR `pwd`
+    setenv GEMC_DATA_DIR $PWD
 
     create_geometry.sh
     ```

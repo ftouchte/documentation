@@ -53,7 +53,7 @@ services:
 
 configuration:
   global:
-    variation: rga_fall2018_mc
+    variation: rgd_fall2023_mc
     dcMinistagger: "NOTONREFWIRE"
     dcFeedthroughs: "OFF"
 #    timestamp: 07/27/2023-12:00:00

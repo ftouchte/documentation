@@ -46,5 +46,7 @@ echo "> Folder created: $dossier"
 		fi
 	done
 	echo "Source file: ../$filename" > readme.txt
-	echo "N° portions: $num" >> readme.txt
+	echo "Number of portions: $num" >> readme.txt
 echo "> All files moved in: $dossier"
+echo "Number of portions: $num"
+

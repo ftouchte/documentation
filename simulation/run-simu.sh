@@ -8,7 +8,7 @@ runno=$4
 outdir=$5
 
 gemc_dir="/w/hallb-scshelf2102/clas12/users/touchte/clas12Tags/source"
-gcard_file="../alert-test.gcard"
+gcard_file="../alert-lund.gcard"
 
 if [ ! -d "$folder" ]; then
 	echo "> This folder does not exists: $folder"

@@ -4,9 +4,9 @@ folder=$1
 ncpu=$2
 
 coatjava_dir="/w/hallb-scshelf2102/clas12/users/touchte/coatjava/"
-#coatjava_dir="/w/hallb-scshelf2102/clas12/users/touchte/coatjava-simu/"
-#yaml_file="../ahdc_config.yaml"
-yaml_file="../alert_clas12_config.yaml"
+#coatjava_dir="/w/hallb-scshelf2102/clas12/users/touchte/coatjava-before/"
+yaml_file="../ahdc_config.yaml"
+#yaml_file="../alert_clas12_config.yaml"
 
 if [[ ! "$ncpu" =~ ^[0-9]+$ ]]; then
 	echo "> $ncpu is not a number, it should correspond to the number of cpu"

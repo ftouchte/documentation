@@ -22,17 +22,10 @@ scons -j40
 
 /w/hallb-scshelf2102/clas12/users/touchte/clas12Tags/source/gemc /scigroup/cvmfs/hallb/clas12/sw/noarch/clas12-config/dev/gemc/dev/rgl_spring2025_D2.gcard -USE_GUI=0 -BEAM_P="proton,200*MeV,90*deg,0*deg" -SPREAD_P="90*MeV, 30.0*deg, 180*deg" -N=10000 -OUTPUT='hipo, new_simu.hipo' 
 
-/w/hallb-scshelf2102/clas12/users/touchte/clas12Tags/source/gemc /scigroup/cvmfs/hallb/clas12/sw/noarch/clas12-config/dev/gemc/dev/rgl_spring2025_D2.gcard -USE_GUI=0 -BEAM_P="proton,200*MeV,90*deg,0*deg" -SPREAD_P="90*MeV, 30.0*deg, 180*deg" -RUNNO=22092 -N=10000 -OUTPUT='hipo, new_simu.hipo'
+/w/hallb-scshelf2102/clas12/users/touchte/clas12Tags/source/gemc ./alert-lund.gcard -USE_GUI=0 -RUNNO=11 -N=1001 -INPUT_GEN_FILE="LUND, tobesimulated.dat" -OUTPUT='hipo, new_simu.hipo'
 
-/w/hallb-scshelf2102/clas12/users/touchte/clas12Tags/source/gemc /scigroup/cvmfs/hallb/clas12/sw/noarch/clas12-config/dev/gemc/dev/rgl_spring2025_D2.gcard -USE_GUI=0 -BEAM_P="proton,249.5*MeV,86.8*deg,0*deg" -SPREAD_P="15.5*MeV, 0.4*deg, 180*deg" -RUNNO=22092 -N=10000 -OUTPUT='hipo, new_simu.hipo'
+/w/hallb-scshelf2102/clas12/users/touchte/clas12Tags/source/gemc ./alert-D2-only.gcard -USE_GUI=0 -RUNNO=22712 -N=10000 -OUTPUT='hipo, simu-deuteron-v33.hipo'
 
-/w/hallb-scshelf2102/clas12/users/touchte/clas12Tags/source/gemc ./alert.gcard -USE_GUI=0 -RUNNO=22092 -N=10000 -OUTPUT='hipo, new_simu.hipo'
-
-/w/hallb-scshelf2102/clas12/users/touchte/clas12Tags/source/gemc ./alert-test.gcard -USE_GUI=0 -RUNNO=22092 -N=10000 -INPUT_GEN_FILE="LUND, tobesimulated.dat" -OUTPUT='hipo, new_simu.hipo'
-
---> you can also create a yaml file
---> you better learn more how to use geant4
---> there a geant4 tutorial on August 18-22: https://indico.jlab.org/event/963/ 
 
 4. Decoding (Use the PulseExtractorEngine --> ModeAHDC)
 

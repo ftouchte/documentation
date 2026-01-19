@@ -1,12 +1,29 @@
 #!/bin/bash
 
+if [ "$1" == "help" ]; then
+    echo ""
+    echo "---------"
+    echo "  Usage"
+    echo "---------"
+    echo ""
+    echo "  All fields are mandatory. One may have to set the path COATJAVA and the YAML file"
+    echo ""
+    echo -e "\033[1m   ./run-recon.sh \033[0m [folder]  [ncpu]"
+    echo ""
+    echo -e "  [folder]   folder containing the small files,  output of \033[1m ./run-reduce.sh \033[0m"
+    echo "  [ncpu  ]   number of cpu, can match the number of files"
+    echo ""
+    exit 1
+fi
+
+
 folder=$1
 ncpu=$2
 
 coatjava_dir="/w/hallb-scshelf2102/clas12/users/touchte/coatjava/"
 #coatjava_dir="/w/hallb-scshelf2102/clas12/users/touchte/coatjava-before/"
-yaml_file="../ahdc_config.yaml"
-#yaml_file="../alert_clas12_config.yaml"
+#yaml_file="../ahdc_config.yaml"
+yaml_file="../alert_clas12_config.yaml"
 
 if [[ ! "$ncpu" =~ ^[0-9]+$ ]]; then
 	echo "> $ncpu is not a number, it should correspond to the number of cpu"

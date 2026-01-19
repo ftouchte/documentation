@@ -1,5 +1,22 @@
 #!/bin/bash
 
+if [ "$1" == "help" ]; then
+    echo ""
+    echo "---------"
+    echo "  Usage"
+    echo "---------"
+    echo ""
+    echo "  All fields are mandatory. Use \`hipo-utils -split ...\`. Example of output name: file_1.hipo. To be used with run recon."
+    echo ""
+    echo -e "\033[1m   ./run-reduce.sh \033[0m [filename]  [nevents]  [outdir]"
+    echo ""
+    echo "  [filename]   file to be reduced in small parts"
+    echo "  [nevents ]   number of events in each files"
+    echo "  [outdir  ]   output directory"
+    echo ""
+    exit 1
+fi
+
 filename=$1
 nevents=$2
 dossier=$3

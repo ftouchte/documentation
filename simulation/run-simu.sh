@@ -1,11 +1,28 @@
 #!/bin/bash
 
+if [ "$1" == "help" ]; then
+    echo ""
+    echo "---------"
+    echo "  Usage"
+    echo "---------"
+    echo ""
+    echo "  All fields are mandatory. The output file can be merged later using hipo-utils"
+    echo ""
+    echo -e "\033[1m   ./run-simu.sh \033[0m [folder]  [ncpu]  [runno]  [outdir]"
+    echo ""
+    echo "  [folder]   folder containing the lund files"
+    echo "  [ncpu  ]   number of cpu, can match the number of lund files"
+    echo "  [runno ]   run number"
+    echo "  [outdir]   output directory"
+    echo ""
+    exit 1
+fi
+
 # this folder contains lund files
 folder=$1
 ncpu=$2
-nevents=$3
-runno=$4
-outdir=$5
+runno=$3
+outdir=$4
 
 gemc_dir="/w/hallb-scshelf2102/clas12/users/touchte/clas12Tags/source"
 gcard_file="../alert-lund.gcard"
@@ -17,11 +34,6 @@ fi
 
 if [[ ! "$ncpu" =~ ^[0-9]+$ ]]; then
 	echo "> $ncpu is not a number, it should correspond to the number of cpu"
-	exit 1
-fi
-
-if [[ ! "$nevents" =~ ^[0-9]+$ ]]; then
-	echo "> $nevents is not a number, it should correspond to the number of events"
 	exit 1
 fi
 
@@ -53,5 +65,5 @@ if [ ! -f "./$gcard_file" ]; then
 	exit 1
 fi
 #parallel --dry-run --progress -j "$ncpu" "$gemc_dir/gemc $gcard_file -USE_GUI=0 -RUNNO=$runno -N=$nevents -INPUT_GEN_FILE='LUND, {/}' -OUTPUT='hipo, simu-{/.}.hipo' > {/.}.log 2>&1" ::: lund_file_*.dat 
-parallel --progress -j "$ncpu" "$gemc_dir/gemc $gcard_file -USE_GUI=0 -RUNNO=$runno -N=$nevents -INPUT_GEN_FILE='LUND, {/}' -OUTPUT='hipo, $outdir/simu-{/.}.hipo' > $outdir/{/.}.log 2>&1" ::: lund_file_*.dat
+parallel --progress -j "$ncpu" "$gemc_dir/gemc $gcard_file -USE_GUI=0 -RUNNO=$runno -INPUT_GEN_FILE='LUND, {/}' -OUTPUT='hipo, $outdir/file-{/.}.hipo' > $outdir/{/.}.log 2>&1" ::: lund_file_*.dat
 

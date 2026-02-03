@@ -11,7 +11,7 @@
     git checkout fix/ahdc-geometry
     ```
 
-1. (Optional) If the repository `coatjava` does not exist in `geometry_source/ `, the script of the next point will download the last release of the official `coatjava` repository. You can use you're own version of `coatjava`. These command are used in `geometry_source/install_coatjava.sh`
+1. (Optional) If the repository `coatjava` does not exist in `geometry_source/ `, the script of the next point will download the last release of the official `coatjava` repository. You can use your own version of `coatjava`. These command are used in `geometry_source/install_coatjava.sh`
     ```shell
     # Assuming you are in clas12Tags directory
     cd geometry_soruce

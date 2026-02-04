@@ -58,9 +58,9 @@
     $GEMC_DATA_DIR/source/gemc /scigroup/cvmfs/hallb/clas12/sw/noarch/clas12-config/dev/gemc/dev/rgl_spring2025_D2.gcard -USE_GUI=0 -BEAM_P="proton,200*MeV,90*deg,0*deg" -SPREAD_P="90*MeV, 30.0*deg, 180*deg" -N=10000 -OUTPUT='hipo, new_simu.hipo'
     ```
 
-## Understand the geometry in GEMC. Case of AHDC
+## Understand geometry in GEMC
 
-1. The geometry is defined in `coatjava`. Here: 
+1. AHDC case. The geometry is defined in `coatjava`. Here: 
 
 1. `GEMC` uses `geometry_source/alert/ahdc_factory.groovy` to generate `TEXT` file containing the information about the geometry of the AHDC in a given format. For the AHDC cell, we only need the (x,y) coordinates of the 12 vertices of the combined trapezoids and the half length in z. Example: this is the first three lines of the file `alert__volumes_defaults.txt`
 
@@ -73,7 +73,7 @@
 
 1. In `GEMC/source` will use `source/detector/sqlite_det_factory.cc` (or `source/detector/text_det_factory.cc`) and `source/detector/detector_factory.cc` to read the `TXT` files or the `SQlite` db generated before to create a map of `detector` objects. 
 
-1. This comment is available in `clas12Tags/source/hitprocess/clas12/alert/ahdc_hitprocess.cc`, in the method `ahdcSignal::ComputeDocaAndTime(MHit * aHit)`
+1. This comment for `ahdcSignal::ComputeDocaAndTime(MHit * aHit)` in `clas12Tags/source/hitprocess/clas12/alert/ahdc_hitprocess.cc`
 
     ```shell
     // The AHDC cell is the combination of 2 G4GenericTrap(ezoids) (subcell 1 and subcell2)
@@ -113,10 +113,10 @@
     //
     //      subcell 1                |               subcell 2
     //                               |                       
-	// 				    0(0)         |          0(3)
+	//                  0(0)         |          0(3)
 	//  1(1)                         |                          5(2)
 	//        1st face               |                1st face           
-	//	   			    3(3)         |          3(0)
+	//	                3(3)         |          3(0)
 	//  2(2)                         |                          4(1)
     //                               |                       
     //                               |                       
@@ -151,3 +151,45 @@
     ```shell
     $COATAVA_DIR/coatjava/bin/recon-util -i new_simu.hipo -o output_name.hipo org.jlab.clas.service.PulseExtractorEngine
     ```
+
+## Miscellaneous notes on the container installation
+
+1. Run the container
+    ```shell
+    docker run -it --rm jeffersonlab/gemc:dev-almalinux94 bash
+    ```
+1. Use this command if you use a GUI app
+    ```shell
+    xhost +local:docker
+    docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY --device /dev/dri jeffersonlab/gemc:dev-almalinux94 bash
+    ```
+    Here are the description of the options:
+        `-v /tmp/.X11-unix:/tmp/.X11-unix` Monte la socket X11 du host dans le container, nécessaire pour que Qt puisse se connecter à ton serveur X
+        `-e DISPLAY=$DISPLAY` Informe Qt quel DISPLAY utiliser (ton écran local, généralement :0)
+        `--device /dev/dri` Donne accès à l’accélération GPU (Direct Rendering Infrastructure) pour Qt/OpenGL → améliore le rendu graphique
+1. Others
+    ```shell
+    # fix git-lfs issue
+    dnf install git-lfs -y
+    git lfs install
+
+    # fix java version
+    dnf install java-21-openjdk-devel
+    export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+    export PATH=$JAVA_HOME/bin:$PATH
+    java -version
+
+    # install vim
+    dnf install -y vim
+
+    # une dépendance nécessaire à l utilisation de la ccdb
+    python3 -m pip install --user sqlalchemy 
+    
+    # install perl and its server
+    dnf install perl
+    dnf groupinstall "Development Tools" -y # une dépendance si non existante
+    sudo dnf install perl perl-devel perl-CPAN gcc make -y # une dépendance si non existante
+    dnf install perl-LWP-Protocol-https perl-IO-Socket-SSL -y # une dépendance si non existante
+    dnf install perl-CPAN perl-App-cpanminus
+    ```
+

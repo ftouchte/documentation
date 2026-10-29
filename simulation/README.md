@@ -167,6 +167,12 @@
         `-v /tmp/.X11-unix:/tmp/.X11-unix` Monte la socket X11 du host dans le container, nécessaire pour que Qt puisse se connecter à ton serveur X
         `-e DISPLAY=$DISPLAY` Informe Qt quel DISPLAY utiliser (ton écran local, généralement :0)
         `--device /dev/dri` Donne accès à l’accélération GPU (Direct Rendering Infrastructure) pour Qt/OpenGL → améliore le rendu graphique
+1. Enter an existing process
+    ```shell
+    xhost +local:docker
+    docker ps -a # list all process
+    docker start -ai CONTAINER_ID
+    ```
 1. Others
     ```shell
     # fix git-lfs issue
